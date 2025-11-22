@@ -27,6 +27,15 @@ class CodeValidationContext(TypedDict):
     expected_behavior: Optional[str]  # Expected behavior or output
 
 
+class ReportValidationContext(TypedDict):
+    """
+    Context information for A/B testing report validation.
+    """
+    report_path: Optional[str]  # Path to the report file (.txt)
+    report_content: Optional[str]  # The report content (if not using report_path)
+    report_type: Optional[str]  # Type of report (default: "ab_test")
+
+
 class ValidationState(TypedDict):
     """
     State schema for the validation workflow.
@@ -43,6 +52,9 @@ class ValidationState(TypedDict):
     # Code validation specific context
     code_validation_context: Optional["CodeValidationContext"]  # Python code validation context
 
+    # Report validation specific context
+    report_validation_context: Optional["ReportValidationContext"]  # A/B testing report validation context
+
     # Message history for LLM interactions
     messages: Annotated[List[BaseMessage], add_messages]
 
@@ -52,6 +64,7 @@ class ValidationState(TypedDict):
     # Sub-agent results
     data_validation_result: Optional[dict]  # Results from data validation agent
     code_validation_result: Optional[dict]  # Results from code validation agent
+    report_validation_result: Optional[dict]  # Results from report validation agent
     sub_agent_2_result: Optional[dict]  # Results from second validation agent
 
     # Orchestrator decisions

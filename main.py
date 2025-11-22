@@ -8,7 +8,7 @@ to coordinate validation tasks using sub-agents via A2A protocol.
 import os
 from dotenv import load_dotenv
 from agents.orchestrator import OrchestratingAgent
-from agents.state import ABTestContext, CodeValidationContext
+from agents.state import ABTestContext, CodeValidationContext, ReportValidationContext
 
 
 def main():
@@ -96,7 +96,7 @@ def main():
     print()
 
     code_validation_context = CodeValidationContext(
-        code_path="datasource/sample_python_files/syntax_errors_ab_test.py",
+        code_path="datasource/sample_python_files/best_practices_ab_test.py",
         code=None,
         description="A/B testing implementation with statistical tests",
         expected_behavior="Should perform t-tests and chi-square tests on A/B test data"
@@ -105,7 +105,7 @@ def main():
     code_task = "Validate the Python code quality for the A/B testing implementation"
 
     print(f"Task: {code_task}")
-    print(f"File: datasource/sample_python_files/syntax_errors_ab_test.py\n")
+    print(f"File: datasource/sample_python_files/best_practices_ab_test.py\n")
     print("=" * 70)
     print()
 
@@ -137,6 +137,71 @@ def main():
             print(f"\nChecks Passed: {', '.join(code_val['checks_passed'])}")
         if code_val.get('checks_failed'):
             print(f"Checks Failed: {', '.join(code_val['checks_failed'])}")
+
+    print("\n" + "=" * 70)
+
+    # Report Validation
+    print("\n\n")
+    print("=" * 70)
+    print("A/B Testing Report Validation")
+    print("=" * 70)
+    print()
+
+    report_validation_context = ReportValidationContext(
+        report_path="datasource/sample_reports/avg_sample.txt",
+        report_content=None,
+        report_type="ab_test"
+    )
+
+    report_task = "Validate the quality and completeness of this A/B testing report"
+
+    print(f"Task: {report_task}")
+    print(f"File: datasource/sample_reports/avg_sample.txt\n")
+    print("=" * 70)
+    print()
+
+    # Execute report validation
+    report_result = orchestrator.validate(report_task, report_validation_context=report_validation_context)
+
+    # Display results
+    print("=" * 70)
+    print("FINAL REPORT VALIDATION RESULTS")
+    print("=" * 70)
+    print(f"\nValidation Status: {'✓ PASSED' if report_result['validation_passed'] else '✗ FAILED'}")
+    print(f"\nSummary:\n{report_result['summary']}")
+
+    # Show report validation details
+    if report_result.get('report_validation'):
+        print("\n" + "=" * 70)
+        print("REPORT VALIDATION DETAILS")
+        print("=" * 70)
+        report_val = report_result['report_validation']
+        print(f"\nOverall Status: {report_val.get('overall_status', 'unknown').upper()}")
+        print(f"Overall Score: {report_val.get('overall_score', 0)}/100")
+
+        print(f"\nCategory Breakdown:")
+        print(f"  Checks Passed:  {len(report_val.get('checks_passed', []))} - {', '.join(report_val.get('checks_passed', [])) if report_val.get('checks_passed') else 'None'}")
+        print(f"  Checks Partial: {len(report_val.get('checks_partial', []))} - {', '.join(report_val.get('checks_partial', [])) if report_val.get('checks_partial') else 'None'}")
+        print(f"  Checks Failed:  {len(report_val.get('checks_failed', []))} - {', '.join(report_val.get('checks_failed', [])) if report_val.get('checks_failed') else 'None'}")
+
+        # Show category scores
+        if report_val.get('details'):
+            print(f"\nDetailed Scores:")
+            for category, details in report_val['details'].items():
+                score = details.get('score', 0)
+                assessment = details.get('assessment', 'UNKNOWN')
+                print(f"  - {category.replace('_', ' ').title()}: {score}/100 ({assessment})")
+
+        # Show trustworthiness summary
+        if report_val.get('summary'):
+            print(f"\nTrustworthiness Assessment:")
+            print(f"{report_val['summary']}")
+
+        # Show suggestions
+        if report_val.get('suggestions'):
+            print(f"\nSuggestions for Improvement:")
+            for i, suggestion in enumerate(report_val.get('suggestions', []), 1):
+                print(f"  {i}. {suggestion}")
 
     print("\n" + "=" * 70)
 
