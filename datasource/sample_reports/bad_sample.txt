@@ -1,0 +1,22 @@
+A/B Test Report: New Signup Form Headline
+
+Experiment overview:
+We ran an experiment to test if a new headline on the signup form would increase signups. The idea was that a more action-oriented headline might encourage users to create an account.
+
+Experiment design:
+Two versions were tested: Control with the old headline and Treatment with "Join Us Today." Primary metric was signup conversion rate. No explicit secondary metrics or sample size calculation were documented. Traffic was split 50/50 for two weeks.
+
+Data and validity checks:
+We checked that traffic was roughly even. No major issues were noted, though no formal SRM test was performed. No notes on tracking validation or anomalies.
+
+Results reporting:
+Control conversion was 22.1% and Treatment conversion was 22.7%. The difference was small. A p-value of 0.08 was reported. No confidence intervals or effect size explanation included.
+
+Interpretation and insights:
+The change might have had a small positive effect, but the evidence is weak. We aren’t sure why the improvement wasn’t larger. No discussion of risks or limitations.
+
+Recommendations:
+Maybe try more impactful messaging or run a bigger test next time. The team is leaning toward not shipping the treatment.
+
+Completeness and clarity:
+The report includes basic information but lacks sample size rationale, deeper analysis, and a strong interpretation.

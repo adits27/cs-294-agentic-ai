@@ -1,0 +1,22 @@
+A/B Test Report: New Checkout Button Design
+
+Experiment overview:
+The goal of this experiment was to increase checkout completion by improving the clarity of the primary CTA. Hypothesis: If we redesign the checkout button to be larger with clearer labeling, then users will complete the purchase more often because the call to action will be more visible and easier to understand. The experiment addresses low checkout conversion observed in prior funnel analysis.
+
+Experiment design:
+Two variants were tested: Control (existing small “Continue” button) and Treatment (larger button labeled “Complete Purchase”). Primary metric was checkout completion rate. Secondary metrics included bounce rate and time to complete checkout. Success criteria was a minimum detectable effect of +3% relative lift with p < 0.05 significance. Sample size required was 40,000 users per variant, calculated with 80% power. Traffic was split 50/50 across all mobile and web platforms. The experiment was planned for 10 days.
+
+Data and validity checks:
+Sample Ratio Mismatch was tested and found within expected range (50.1/49.9). Event tracking was validated before launch. No outages occurred during the test period. Two minor tracking anomalies were detected on Day 2 and corrected, with impacted data removed.
+
+Results reporting:
+Checkout completion increased from 12.3% in Control to 13.8% in Treatment. Relative lift was +12.4%. P-value was 0.01 and the 95% confidence interval excluded zero. Secondary metrics showed no negative impacts. Time to complete checkout improved by 4%. Full tables and breakdowns were included.
+
+Interpretation and insights:
+Results suggest that clearer button labeling and increased visual prominence helped users understand the next step and reduced friction. No harmful side effects were detected. User behavior aligns with expectations based on UX research.
+
+Recommendations:
+Ship the new button globally. Run a follow-up experiment testing color variants to explore further improvements. Continue monitoring long-term effects on repeat purchase behavior.
+
+Completeness and clarity:
+The report includes all assumptions, calculations, data tables, and a clean narrative that supports decision-making.

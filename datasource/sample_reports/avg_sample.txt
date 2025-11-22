@@ -1,0 +1,21 @@
+A/B Test Report
+
+We changed something on the site and tested it. The new version seemed better.
+
+Experiment design:
+We had a control and a treatment but forgot to write down what the differences were. Not sure what metrics we were tracking but it had something to do with conversions. We didn’t plan the sample size. Traffic was random.
+
+Data quality:
+There might have been issues with tracking but we didn’t look into it. One day the site broke, but we kept the data anyway.
+
+Results:
+Control was 10% conversion and Treatment was 11%. That seems good. No stats were done. No confidence intervals or anything like that. Data might include bots.
+
+Interpretation:
+Treatment wins because it's higher. That means the change works.
+
+Recommendations:
+Ship it.
+
+Completeness:
+Many things are missing. We didn’t include reasoning, hypothesis, charts, or details.
