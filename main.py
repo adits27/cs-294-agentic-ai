@@ -88,6 +88,62 @@ def main():
 
     print("\n" + "=" * 70)
 
+    # Statistical Test Validation
+    print("\n\n")
+    print("=" * 70)
+    print("Statistical Test Validation")
+    print("=" * 70)
+    print()
+
+    statistical_validation_context = StatisticalValidationContext(
+        test_results_path="datasource/sample_statistical_tests/good_statistical_test.txt",
+        test_results=None,
+        dataset_path="datasource/data/sample_ab_test.csv",
+        test_type="t-test",
+        hypothesis="Premium pricing tier will increase average revenue per user by 20%",
+        significance_level=0.05
+    )
+
+    statistical_task = "Validate the statistical analysis for the premium pricing A/B test"
+
+    print(f"Task: {statistical_task}")
+    print(f"File: datasource/sample_statistical_tests/good_statistical_test.txt\n")
+    print("=" * 70)
+    print()
+
+    # Execute statistical validation
+    statistical_result = orchestrator.validate(statistical_task, statistical_validation_context=statistical_validation_context)
+
+    # Display results
+    print("=" * 70)
+    print("FINAL STATISTICAL VALIDATION RESULTS")
+    print("=" * 70)
+    print(f"\nValidation Status: {'✓ PASSED' if statistical_result['validation_passed'] else '✗ FAILED'}")
+    print(f"\nSummary:\n{statistical_result['summary']}")
+
+    # Show statistical validation details
+    if statistical_result.get('statistical_validation'):
+        print("\n" + "=" * 70)
+        print("STATISTICAL VALIDATION DETAILS")
+        print("=" * 70)
+        stat_val = statistical_result['statistical_validation']
+        print(f"\nOverall Status: {stat_val.get('overall_status', 'unknown').upper()}")
+        print(f"Overall Score: {stat_val.get('overall_score', 0)}/10")
+        print(f"\nIndividual Scores:")
+        print(f"  - Test Selection:      {stat_val.get('test_selection_score', 0)}/10")
+        print(f"  - Assumptions:         {stat_val.get('assumptions_score', 0)}/10")
+        print(f"  - Power Analysis:      {stat_val.get('power_analysis_score', 0)}/10")
+        print(f"  - Effect Size:         {stat_val.get('effect_size_score', 0)}/10")
+        print(f"  - P-Value:             {stat_val.get('pvalue_score', 0)}/10")
+        print(f"  - Confidence Intervals: {stat_val.get('confidence_interval_score', 0)}/10")
+
+        if stat_val.get('checks_passed'):
+            print(f"\nChecks Passed: {', '.join(stat_val['checks_passed'])}")
+        if stat_val.get('checks_failed'):
+            print(f"Checks Failed: {', '.join(stat_val['checks_failed'])}")
+
+    print("\n" + "=" * 70)
+
     # Code Validation
     print("\n\n")
     print("=" * 70)
@@ -202,62 +258,6 @@ def main():
             print(f"\nSuggestions for Improvement:")
             for i, suggestion in enumerate(report_val.get('suggestions', []), 1):
                 print(f"  {i}. {suggestion}")
-
-    print("\n" + "=" * 70)
-
-    # Statistical Test Validation
-    print("\n\n")
-    print("=" * 70)
-    print("Statistical Test Validation")
-    print("=" * 70)
-    print()
-
-    statistical_validation_context = StatisticalValidationContext(
-        test_results_path="datasource/sample_statistical_tests/good_statistical_test.txt",
-        test_results=None,
-        dataset_path="datasource/data/sample_ab_test.csv",
-        test_type="t-test",
-        hypothesis="Premium pricing tier will increase average revenue per user by 20%",
-        significance_level=0.05
-    )
-
-    statistical_task = "Validate the statistical analysis for the premium pricing A/B test"
-
-    print(f"Task: {statistical_task}")
-    print(f"File: datasource/sample_statistical_tests/good_statistical_test.txt\n")
-    print("=" * 70)
-    print()
-
-    # Execute statistical validation
-    statistical_result = orchestrator.validate(statistical_task, statistical_validation_context=statistical_validation_context)
-
-    # Display results
-    print("=" * 70)
-    print("FINAL STATISTICAL VALIDATION RESULTS")
-    print("=" * 70)
-    print(f"\nValidation Status: {'✓ PASSED' if statistical_result['validation_passed'] else '✗ FAILED'}")
-    print(f"\nSummary:\n{statistical_result['summary']}")
-
-    # Show statistical validation details
-    if statistical_result.get('statistical_validation'):
-        print("\n" + "=" * 70)
-        print("STATISTICAL VALIDATION DETAILS")
-        print("=" * 70)
-        stat_val = statistical_result['statistical_validation']
-        print(f"\nOverall Status: {stat_val.get('overall_status', 'unknown').upper()}")
-        print(f"Overall Score: {stat_val.get('overall_score', 0)}/10")
-        print(f"\nIndividual Scores:")
-        print(f"  - Test Selection:      {stat_val.get('test_selection_score', 0)}/10")
-        print(f"  - Assumptions:         {stat_val.get('assumptions_score', 0)}/10")
-        print(f"  - Power Analysis:      {stat_val.get('power_analysis_score', 0)}/10")
-        print(f"  - Effect Size:         {stat_val.get('effect_size_score', 0)}/10")
-        print(f"  - P-Value:             {stat_val.get('pvalue_score', 0)}/10")
-        print(f"  - Confidence Intervals: {stat_val.get('confidence_interval_score', 0)}/10")
-
-        if stat_val.get('checks_passed'):
-            print(f"\nChecks Passed: {', '.join(stat_val['checks_passed'])}")
-        if stat_val.get('checks_failed'):
-            print(f"Checks Failed: {', '.join(stat_val['checks_failed'])}")
 
     print("\n" + "=" * 70)
 
